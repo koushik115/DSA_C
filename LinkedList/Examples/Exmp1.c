@@ -113,3 +113,19 @@ int main(void) {
         }
     }
 }
+
+void display(struct node *start) {
+    struct node *p = start;
+
+    if(!p) {
+        printf("List is empty!!");
+        return;
+    } else {
+        while(p != NULL) {
+            printf("%d\t", p->info);
+            p = p->link;
+        }
+    }
+
+    printf("\n\n");
+}
