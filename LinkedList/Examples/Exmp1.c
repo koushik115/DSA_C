@@ -129,3 +129,68 @@ void display(struct node *start) {
 
     printf("\n\n");
 }
+
+void search(struct node *start, int data) {
+    struct node *p = start;
+    int pos = 1;
+
+    while(p != NULL) {
+        if(p->info == data) {
+            printf("Item %d found at %d position\n", data, pos);
+            return;
+        }
+
+        p = p->link;
+        pos++;
+    }
+
+    printf("Item %d not found in the list\n");
+}
+
+struct node *addatbeg(struct node *start, int data) {
+    struct node *tmp = NULL;
+    tmp = (struct node *)malloc(sizeof(struct node));
+
+    tmp->info = data;
+    tmp->link = start;
+    start = tmp;
+
+    return start;
+}
+
+struct node *addatend(struct node *start, int data) {
+    struct node *tmp = NULL, *p = NULL;
+
+    tmp = (struct node *)malloc(sizeof(struct node));
+    tmp->info = data;
+
+    p = start;
+    while(p->link != NULL) {
+        p = p->link;
+    }
+
+    p->link = tmp;
+    tmp->link = NULL;
+
+    return start;  
+}
+
+struct node *addafter(struct node *start, int data, int item) {
+    struct node *tmp = NULL, *p = NULL;
+
+    p = start;
+    while(p != NULL) {
+        if(p->info == item) {
+            tmp = (struct node *)malloc(sizeof(struct node));
+            tmp->info = data;
+            tmp->link = p->link;
+            p->link = tmp;
+            return start;
+        }
+
+        p = p->link;
+    }
+
+    printf("%d not present in the list\n", item);
+    return start;
+}
