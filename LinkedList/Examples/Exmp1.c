@@ -114,6 +114,28 @@ int main(void) {
     }
 }
 
+struct node *create_list(struct node *start) {
+    int noOfNode = 0, data = 0;
+    
+    printf("Enter the number of nodes : ");
+    scanf("%d", &noOfNode);
+
+    if(noOfNode == 0) 
+        return start;
+
+    printf("Enter the element to be inserted : ");
+    scanf("%d", &data);
+
+    start = addatbeg(start, data);
+    for(int i = 2; i <= noOfNode; i++) {
+        printf("Enter the element to be inserted : ");
+        scanf("%d", &data);
+        start = addatend(start, data);
+    }
+
+    return start;
+}
+
 void display(struct node *start) {
     struct node *p = start;
 
