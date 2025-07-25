@@ -326,3 +326,19 @@ struct node *del(struct node *start, int data) {
     printf("Element %d not found in the list!\n", data);
     return start;
 }
+
+struct node *reverse(struct node *start) {
+    struct node *prev = NULL, *ptr = NULL, *next = NULL;
+
+    prev = NULL;
+    ptr = start;
+    while(ptr != NULL) {
+        next = ptr->link;
+        ptr->link = prev;
+        prev = ptr;
+        ptr = next;
+    }
+
+    start = prev;
+    return start;
+}
