@@ -95,7 +95,7 @@ int main(void) {
             break;
 
         case 10:
-            printf("Enter the element to be deleted\n");
+            printf("Enter the element to be deleted : ");
             scanf("%d", &data);
             start = del(start, data);
             break;
@@ -108,7 +108,7 @@ int main(void) {
             exit(1);
 
         default:
-            printf("Illegal command!!");
+            printf("Illegal command!!\n");
             break;
         }
     }
@@ -118,7 +118,7 @@ void display(struct node *start) {
     struct node *p = start;
 
     if(!p) {
-        printf("List is empty!!");
+        printf("List is empty!!\n");
         return;
     } else {
         while(p != NULL) {
@@ -128,6 +128,24 @@ void display(struct node *start) {
     }
 
     printf("\n\n");
+}
+
+void count(struct node *start) {
+    struct node *p = NULL;
+    int count = 0;
+
+    if(start == NULL) {
+        printf("No elements found in the list!\n");
+        return start;
+    } 
+
+    p = start;
+    while(p != NULL) {
+        count++;
+        p = p->link;
+    }
+
+    printf("%d elements found in the list!\n", count);
 }
 
 void search(struct node *start, int data) {
@@ -199,7 +217,7 @@ struct node *addbefore(struct node *start, int data, int item) {
     struct node *tmp = NULL, *p = NULL;
 
     if(start == NULL) {
-        printf("List is empty!");
+        printf("List is empty!!\n");
         return start;
     }
 
@@ -245,7 +263,7 @@ struct node *addatpos(struct node *start, int data, int pos) {
         p = p->link;
 
     if(p == NULL) 
-        printf("There are less than %d elements in the list!", pos);
+        printf("There are less than %d elements in the list!\n", pos);
     else {
         tmp->link = p->link;
         p->link = tmp;
