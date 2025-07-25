@@ -158,7 +158,7 @@ void count(struct node *start) {
 
     if(start == NULL) {
         printf("No elements found in the list!\n");
-        return start;
+        return;
     } 
 
     p = start;
