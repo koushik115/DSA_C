@@ -215,38 +215,41 @@ struct node *addatbeg(struct node *start, int data) {
 
 struct node *addatend(struct node *start, int data) {
     struct node *tmp = NULL, *p = NULL;
-
+    
     tmp = (struct node *)malloc(sizeof(struct node));
     tmp->info = data;
 
     p = start;
-    while(p->link != NULL) {
-        p = p->link;
-    }
+    while(p->next != NULL)
+        p = p->next;
 
-    p->link = tmp;
-    tmp->link = NULL;
+    p->next = tmp;
+    tmp->prev = p;
+    tmp->next = NULL;
 
-    return start;  
+    return start;
 }
 
 struct node *addafter(struct node *start, int data, int item) {
     struct node *tmp = NULL, *p = NULL;
+    tmp = (struct node *)malloc(sizeof(struct node));
+    tmp->info = data;
 
-    p = start;
     while(p != NULL) {
         if(p->info == item) {
-            tmp = (struct node *)malloc(sizeof(struct node));
-            tmp->info = data;
-            tmp->link = p->link;
-            p->link = tmp;
+            tmp->prev = p;
+            tmp->next = p->next;
+            if(p->next != NULL) {
+                p->next->prev = tmp;
+            }
+            p->next = tmp;
+
             return start;
         }
-
-        p = p->link;
+        p = p->next;
     }
+    printf("Element %d not found in the list!\n", item);
 
-    printf("%d not present in the list\n", item);
     return start;
 }
 
