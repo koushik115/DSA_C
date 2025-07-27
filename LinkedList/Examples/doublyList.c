@@ -9,6 +9,7 @@ struct node *create_list(struct node *start);
 void display(struct node *start);
 void count(struct node *start);
 void search(struct node *start, int data);
+struct node *addtoempty(struct node *start, int data);
 struct node *addatbeg(struct node *start, int data);
 struct node *addatend(struct node *start, int data);
 struct node *addafter(struct node *start, int data, int item);
@@ -185,6 +186,18 @@ void search(struct node *start, int data) {
     }
 
     printf("Item %d not found in the list\n");
+}
+
+struct node *addtoempty(struct node *start, int data) {
+    struct node *tmp = NULL;
+    tmp = (struct node *)malloc(sizeof(struct node));
+
+    tmp->prev = NULL;
+    tmp->info = data;
+    tmp->next = NULL;
+    start = tmp;
+
+    return start;
 }
 
 struct node *addatbeg(struct node *start, int data) {
