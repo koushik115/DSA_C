@@ -143,7 +143,7 @@ void display(struct node *start) {
         printf("No elements in the list!!\n");
         return;
     }
-    
+
     while(p != NULL) {
         printf("%d ", p->info);
         p = p->next;
@@ -191,8 +191,10 @@ struct node *addatbeg(struct node *start, int data) {
     struct node *tmp = NULL;
     tmp = (struct node *)malloc(sizeof(struct node));
 
+    tmp->prev = NULL;
     tmp->info = data;
-    tmp->link = start;
+    tmp->next = start;
+    start->prev = tmp;
     start = tmp;
 
     return start;
