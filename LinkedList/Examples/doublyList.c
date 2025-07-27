@@ -139,14 +139,14 @@ struct node *create_list(struct node *start) {
 void display(struct node *start) {
     struct node *p = start;
 
-    if(!p) {
-        printf("List is empty!!\n");
+    if(p == NULL) {
+        printf("No elements in the list!!\n");
         return;
-    } else {
-        while(p != NULL) {
-            printf("%d\t", p->info);
-            p = p->link;
-        }
+    }
+    
+    while(p != NULL) {
+        printf("%d ", p->info);
+        p = p->next;
     }
 
     printf("\n\n");
