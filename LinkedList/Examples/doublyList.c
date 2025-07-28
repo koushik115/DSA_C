@@ -254,35 +254,41 @@ struct node *addafter(struct node *start, int data, int item) {
 }
 
 struct node *addbefore(struct node *start, int data, int item) {
-    struct node *tmp = NULL, *p = NULL;
+    struct node *tmp = NULL, *q = NULL;
+    
+    tmp = (struct node *)malloc(sizeof(struct node));
+    tmp->info = data;
 
     if(start == NULL) {
-        printf("List is empty!!\n");
+        printf("List is empty!\n");
         return start;
     }
 
-    if(item == start->info) {
-        tmp = (struct node *)malloc(sizeof(struct node));
-        tmp->info = data;
-        tmp->link = start;
+    if(start->info == item) {
+        tmp->next = start;
+        tmp->prev = NULL;
+        start->prev = tmp;
         start = tmp;
+
         return start;
     }
 
-    p = start;
-    while(p->link != NULL) {
-        if(p->link->info == item) {
-            tmp = (struct node *)malloc(sizeof(struct node));
-            tmp->info = data;
-            tmp->link = p->link;
-            p->link = tmp;
+    q = start;
+    while(q != NULL) {
+        if(q->info == item) {
+            tmp->next = q;
+            tmp->prev = q->prev;
+            q->prev->next = tmp;
+            q->prev = tmp;
+
             return start;
         }
-
-        p = p->link;
+        q = q->next;
     }
 
-    printf("%d not present in the list!\n", item);
+    printf("Element %d not found in the list!\n", item);
+    printf("\n\n");
+
     return start;
 }
 
