@@ -116,22 +116,23 @@ int main(void) {
 }
 
 struct node *create_list(struct node *start) {
-    int noOfNode = 0, data = 0;
-    
-    printf("Enter the number of nodes : ");
-    scanf("%d", &noOfNode);
+    int i, n, data;
 
-    if(noOfNode == 0) 
+    printf("Enter the number of nodes : ");
+    scanf("%d", &n);
+
+    start = NULL;
+    if(start == NULL)
         return start;
 
-    printf("Enter the element to be inserted : ");
+    printf("Enter the elements to be inserted : ");
     scanf("%d", &data);
-
     start = addatbeg(start, data);
-    for(int i = 2; i <= noOfNode; i++) {
-        printf("Enter the element to be inserted : ");
-        scanf("%d", &data);
-        start = addatend(start, data);
+    
+    for(i = 2; i <= n; i++) {
+    printf("Enter the elements to be inserted : ");
+    scanf("%d", &data);
+    start = addatend(start, data);        
     }
 
     return start;
