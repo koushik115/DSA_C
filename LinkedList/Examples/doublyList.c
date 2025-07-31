@@ -320,50 +320,53 @@ struct node *addatpos(struct node *start, int data, int pos) {
 }
 
 struct node *del(struct node *start, int data) {
-    struct node *tmp = NULL, *p = NULL;
+    struct node *tmp = NULL;
 
     if(start == NULL) {
-        printf("List is empty!!\n");
+        printf("List is empty!\n");
         return start;
     }
 
-    // First item to be deleted
-    if(data == start->info) {
-        tmp = start;
-        start = start->link;
-        free(tmp);
-        return start;
-    }
-
-    // Item to be deleted in between the nodes
-    p = start;
-    while(p->link != NULL) {
-        if(p->link->info == data) {
-            tmp = p->link;
-            p->link = tmp->link;
+    if(start->next == NULL) {
+        if(start->info == data) {
+            tmp = start;
+            start = NULL;
             free(tmp);
+        
+            return start;
+        } else {
+            printf("Element %d not found in the list\n", data);
             return start;
         }
+    }
 
-        p = p->link;
+    if(start->info == data) {
+        tmp = start;
+        start = start->next;
+        start->prev = NULL;
+        free(tmp);
+
+        return start;
+    }
+
+    tmp = start->next;
+    while (tmp->next != NULL) {
+        if(tmp->info == data) {
+            tmp->prev->next = tmp->next;
+            tmp->next->prev = tmp->prev;
+            free(tmp);
+
+            return start;
+        }
+    }
+
+    if(tmp->next == NULL && tmp->info == data)  {
+        tmp->prev->next = NULL;
+        free(tmp);
+
+        return start;
     }
 
     printf("Element %d not found in the list!\n", data);
-    return start;
-}
-
-struct node *reverse(struct node *start) {
-    struct node *prev = NULL, *ptr = NULL, *next = NULL;
-
-    prev = NULL;
-    ptr = start;
-    while(ptr != NULL) {
-        next = ptr->link;
-        ptr->link = prev;
-        prev = ptr;
-        ptr = next;
-    }
-
-    start = prev;
     return start;
 }
