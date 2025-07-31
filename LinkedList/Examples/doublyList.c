@@ -166,7 +166,7 @@ void count(struct node *start) {
     p = start;
     while(p != NULL) {
         count++;
-        p = p->link;
+        p = p->next;
     }
 
     printf("%d elements found in the list!\n", count);
@@ -182,7 +182,7 @@ void search(struct node *start, int data) {
             return;
         }
 
-        p = p->link;
+        p = p->next;
         pos++;
     }
 
