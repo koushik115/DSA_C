@@ -12,7 +12,7 @@ void search(struct node *start, int data);
 struct node *addatbeg(struct node *last, int data);
 struct node *addatempty(struct node *last, int data);
 struct node *addatend(struct node *last, int data);
-struct node *addafter(struct node *start, int data, int item);
+struct node *addafter(struct node *last, int data, int item);
 struct node *addbefore(struct node *start, int data, int item);
 struct node *addatpos(struct node *start, int data, int pos);
 struct node *del(struct node *start, int data);
@@ -224,24 +224,28 @@ struct node *addatend(struct node *last, int data) {
     return last;
 }
 
-struct node *addafter(struct node *start, int data, int item) {
+struct node *addafter(struct node *last, int data, int item) {
     struct node *tmp = NULL, *p = NULL;
 
-    p = start;
-    while(p != NULL) {
+    p = last->link;
+    do {
         if(p->info == item) {
             tmp = (struct node *)malloc(sizeof(struct node));
             tmp->info = data;
+
             tmp->link = p->link;
             p->link = tmp;
-            return start;
+            if(p == last)
+                last = tmp;
+            
+            return last;
         }
 
         p = p->link;
-    }
+    } while (p != last->link);\n
 
-    printf("%d not present in the list\n", item);
-    return start;
+    printf("%d element not found in the list!", item);
+    return last;
 }
 
 struct node *addbefore(struct node *start, int data, int item) {
