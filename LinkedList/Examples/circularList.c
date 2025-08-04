@@ -9,13 +9,13 @@ struct node
 };
 
 // Function Prototype
-struct node *create_list(struct node *start);
+struct node *create_list(struct node *last);
 void display(struct node *last);
 struct node *addatbeg(struct node *last, int data);
 struct node *addatempty(struct node *last, int data);
 struct node *addatend(struct node *last, int data);
 struct node *addafter(struct node *last, int data, int item);
-struct node *del(struct node *start, int data);
+struct node *del(struct node *last, int data);
 
 int main(void)
 {
