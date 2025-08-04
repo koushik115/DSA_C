@@ -82,26 +82,27 @@ int main(void) {
     }
 }
 
-struct node *create_list(struct node *start) {
+struct node *create_list(struct node *last) {
     int noOfNode = 0, data = 0;
-    
-    printf("Enter the number of nodes : ");
+    last = NULL;
+
+    printf("Enter the number of nodes to be created: ");
     scanf("%d", &noOfNode);
 
-    if(noOfNode == 0) 
-        return start;
+    if(!noOfNode)
+        return last;
 
-    printf("Enter the element to be inserted : ");
+    printf("Enter the element to be inserted: ");
     scanf("%d", &data);
+    last = addatempty(last, data);
 
-    start = addatbeg(start, data);
     for(int i = 2; i <= noOfNode; i++) {
-        printf("Enter the element to be inserted : ");
+        printf("Enter the element to be inserted: ");
         scanf("%d", &data);
-        start = addatend(start, data);
+        last = addatend(last, data);
     }
 
-    return start;
+    return last;
 }
 
 void display(struct node *last) {
