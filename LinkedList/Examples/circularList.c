@@ -7,34 +7,25 @@ struct node {int info; struct node *link;};
 // Function Prototype
 struct node *create_list(struct node *start);
 void display(struct node *last);
-void count(struct node *start);
-void search(struct node *start, int data);
 struct node *addatbeg(struct node *last, int data);
 struct node *addatempty(struct node *last, int data);
 struct node *addatend(struct node *last, int data);
 struct node *addafter(struct node *last, int data, int item);
-struct node *addbefore(struct node *start, int data, int item);
-struct node *addatpos(struct node *start, int data, int pos);
 struct node *del(struct node *start, int data);
-struct node *reverse(struct node *start);
 
 int main(void) {
-    struct node *start = NULL;
+    struct node *last = NULL;
     int choice, data, item, pos;
 
     while(1) {
         printf("1. Create a list\n");
         printf("2. Display\n");
-        printf("3. Count\n");
-        printf("4. Search\n");
-        printf("5. Add to empty list \\ Add at beginning\n");
-        printf("6. Add at end\n");
-        printf("7. Add after node\n");
-        printf("8. Add before node\n");
-        printf("9. Add at position\n");
-        printf("10. Delete\n");
-        printf("11. Reverse\n");
-        printf("12. Quit\n");
+        printf("3. Add to empty list\n");
+        printf("4. Add at beginning\n");
+        printf("5. Add at end\n");
+        printf("6. Add after\n");
+        printf("7. Delete\n");
+        printf("8. Quit\n");
         
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -42,67 +33,43 @@ int main(void) {
         switch (choice)
         {
         case 1:
-            start = create_list(start);
+            last = create_list(last);
             break;
 
         case 2:
-            display(start);
+            display(last);
             break;    
 
         case 3:
-            count(start);
-            break; 
+            printf("Enter the element to be inserted : ");
+            scanf("%d", &data);
+            last = addatempty(last, data);
+            break;
 
         case 4:
-            printf("Enter the elements to be searched : ");
+            printf("Enter the elements to be inserted : ");
             scanf("%d", &data);
-            search(start, data);
+            last = addatbeg(last, data);
             break;
 
         case 5:
-            printf("Enter the elements to be inserted : ");
+            printf("Enter the element to be inserted : ");
             scanf("%d", &data);
-            start = addatbeg(start, data);
+            last = addatend(last, data);
             break;
 
         case 6:
             printf("Enter the element to be inserted : ");
             scanf("%d", &data);
-            start = addatend(start, data);
+            printf("Enter the element after which to insert : ");
+            scanf("%d", &item);
+            last = addafter(last, data, item);
             break;
 
         case 7:
-            printf("Enter the element to be inserted : ");
-            scanf("%d", &data);
-            printf("Enter the element after which to insert : ");
-            scanf("%d", &item);
-            start = addafter(start, data, item);
-            break;
-
-        case 8:
-            printf("Enter the element to be inserted : ");
-            scanf("%d", &data);
-            printf("Enter the element before which to insert : ");
-            scanf("%d", &item);
-            start = addbefore(start, data, item);
-            break;
-
-        case 9:
-            printf("Enter the element to be inserted : ");
-            scanf("%d", &data);
-            printf("Enter the position at which to insert : ");
-            scanf("%d", &pos);
-            start = addatpos(start, data, pos);
-            break;
-
-        case 10:
             printf("Enter the element to be deleted : ");
             scanf("%d", &data);
-            start = del(start, data);
-            break;
-
-        case 11:
-            start = reverse(start);
+            last = del(last, data);
             break;
 
         case 12:
@@ -153,41 +120,6 @@ void display(struct node *last) {
 
     printf("\n\n");
 
-}
-
-void count(struct node *start) {
-    struct node *p = NULL;
-    int count = 0;
-
-    if(start == NULL) {
-        printf("No elements found in the list!\n");
-        return;
-    } 
-
-    p = start;
-    while(p != NULL) {
-        count++;
-        p = p->link;
-    }
-
-    printf("%d elements found in the list!\n", count);
-}
-
-void search(struct node *start, int data) {
-    struct node *p = start;
-    int pos = 1;
-
-    while(p != NULL) {
-        if(p->info == data) {
-            printf("Item %d found at %d position\n", data, pos);
-            return;
-        }
-
-        p = p->link;
-        pos++;
-    }
-
-    printf("Item %d not found in the list\n");
 }
 
 struct node *addatbeg(struct node *last, int data) {
@@ -242,69 +174,10 @@ struct node *addafter(struct node *last, int data, int item) {
         }
 
         p = p->link;
-    } while (p != last->link);\n
+    } while (p != last->link);
 
     printf("%d element not found in the list!", item);
     return last;
-}
-
-struct node *addbefore(struct node *start, int data, int item) {
-    struct node *tmp = NULL, *p = NULL;
-
-    if(start == NULL) {
-        printf("List is empty!!\n");
-        return start;
-    }
-
-    if(item == start->info) {
-        tmp = (struct node *)malloc(sizeof(struct node));
-        tmp->info = data;
-        tmp->link = start;
-        start = tmp;
-        return start;
-    }
-
-    p = start;
-    while(p->link != NULL) {
-        if(p->link->info == item) {
-            tmp = (struct node *)malloc(sizeof(struct node));
-            tmp->info = data;
-            tmp->link = p->link;
-            p->link = tmp;
-            return start;
-        }
-
-        p = p->link;
-    }
-
-    printf("%d not present in the list!\n", item);
-    return start;
-}
-
-struct node *addatpos(struct node *start, int data, int pos) {
-    struct node *tmp = NULL, *p = NULL;
-
-    tmp = (struct node *)malloc(sizeof(struct node));
-    tmp->info = data;
-
-    if(pos == 1) {
-        tmp->link = start;
-        start = tmp;
-        return start;
-    }
-
-    p = start;
-    for(int i = 0; i < pos - 1 && p != NULL; i++)
-        p = p->link;
-
-    if(p == NULL) 
-        printf("There are less than %d elements in the list!\n", pos);
-    else {
-        tmp->link = p->link;
-        p->link = tmp;
-    }
-
-    return start;
 }
 
 struct node *del(struct node *start, int data) {
@@ -337,21 +210,5 @@ struct node *del(struct node *start, int data) {
     }
 
     printf("Element %d not found in the list!\n", data);
-    return start;
-}
-
-struct node *reverse(struct node *start) {
-    struct node *prev = NULL, *ptr = NULL, *next = NULL;
-
-    prev = NULL;
-    ptr = start;
-    while(ptr != NULL) {
-        next = ptr->link;
-        ptr->link = prev;
-        prev = ptr;
-        ptr = next;
-    }
-
-    start = prev;
     return start;
 }
