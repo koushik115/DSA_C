@@ -201,38 +201,18 @@ struct node *addatpos(struct node *head, int data, int pos)
 struct node *del(struct node *head, int data)
 {
     struct node *tmp = NULL, *p = NULL;
-
-    if (head == NULL)
-    {
-        printf("List is empty!!\n");
-        return head;
-    }
-
-    // First item to be deleted
-    if (data == head->info)
-    {
-        tmp = head;
-        head = head->link;
-        free(tmp);
-        return head;
-    }
-
-    // Item to be deleted in between the nodes
     p = head;
-    while (p->link != NULL)
-    {
-        if (p->link->info == data)
-        {
+
+    while(p->link != NULL) {
+        if(p->link->info == data) {
             tmp = p->link;
             p->link = tmp->link;
             free(tmp);
             return head;
         }
-
-        p = p->link;
     }
 
-    printf("Element %d not found in the list!\n", data);
+    printf("%d element not present in the list\n", data);
     return head;
 }
 
