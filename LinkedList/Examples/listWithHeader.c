@@ -143,7 +143,7 @@ struct node *addatend(struct node *head, int data)
     tmp->info = data;
 
     p = head;
-    while(p->link != NULL)
+    while (p->link != NULL)
         p = p->link;
 
     p->link = tmp;
@@ -156,8 +156,10 @@ struct node *addbefore(struct node *head, int data, int item)
 {
     struct node *tmp = NULL, *p = NULL;
     p = head;
-    while(p->link != NULL) {
-        if(p->link->info == item) {
+    while (p->link != NULL)
+    {
+        if (p->link->info == item)
+        {
             tmp = (struct node *)malloc(sizeof(struct node));
             tmp->info = data;
 
@@ -176,28 +178,22 @@ struct node *addbefore(struct node *head, int data, int item)
 struct node *addatpos(struct node *head, int data, int pos)
 {
     struct node *tmp = NULL, *p = NULL;
-
     tmp = (struct node *)malloc(sizeof(struct node));
     tmp->info = data;
-
-    if (pos == 1)
-    {
-        tmp->link = head;
-        head = tmp;
-        return head;
-    }
+    int i;
 
     p = head;
-    for (int i = 0; i < pos - 1 && p != NULL; i++)
-        p = p->link;
-
-    if (p == NULL)
-        printf("There are less than %d elements in the list!\n", pos);
-    else
+    for (i = 1; i < pos; i++)
     {
-        tmp->link = p->link;
-        p->link = tmp;
+        p = p->link;
+        if(p == NULL) {
+            printf("There are less than %d elements in the list\n", pos);
+            return head;
+        }
     }
+
+    tmp->link = p->link;
+    p->link = tmp;
 
     return head;
 }
