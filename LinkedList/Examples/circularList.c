@@ -252,5 +252,5 @@ struct node *del(struct node *last, int data)
     }
 
     printf("%d element not found in the list\n", data);
-m    return last;
+    return last;
 }

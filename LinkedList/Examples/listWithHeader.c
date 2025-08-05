@@ -186,7 +186,8 @@ struct node *addatpos(struct node *head, int data, int pos)
     for (i = 1; i < pos; i++)
     {
         p = p->link;
-        if(p == NULL) {
+        if (p == NULL)
+        {
             printf("There are less than %d elements in the list\n", pos);
             return head;
         }
@@ -203,8 +204,10 @@ struct node *del(struct node *head, int data)
     struct node *tmp = NULL, *p = NULL;
     p = head;
 
-    while(p->link != NULL) {
-        if(p->link->info == data) {
+    while (p->link != NULL)
+    {
+        if (p->link->info == data)
+        {
             tmp = p->link;
             p->link = tmp->link;
             free(tmp);
@@ -220,8 +223,7 @@ struct node *reverse(struct node *head)
 {
     struct node *prev = NULL, *ptr = NULL, *next = NULL;
 
-    prev = NULL;
-    ptr = head;
+    ptr = head->link;
     while (ptr != NULL)
     {
         next = ptr->link;
@@ -230,6 +232,6 @@ struct node *reverse(struct node *head)
         ptr = next;
     }
 
-    head = prev;
+    head->link = prev;
     return head;
 }
