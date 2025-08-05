@@ -118,13 +118,14 @@ void display(struct node *head)
 {
     struct node *p = head;
 
-    if (!p)
+    if (head->link == NULL)
     {
         printf("List is empty!!\n");
         return;
     }
     else
     {
+        p = head->link;
         while (p != NULL)
         {
             printf("%d\t", p->info);
@@ -138,15 +139,12 @@ void display(struct node *head)
 struct node *addatend(struct node *head, int data)
 {
     struct node *tmp = NULL, *p = NULL;
-
     tmp = (struct node *)malloc(sizeof(struct node));
     tmp->info = data;
 
     p = head;
-    while (p->link != NULL)
-    {
+    while(p->link != NULL)
         p = p->link;
-    }
 
     p->link = tmp;
     tmp->link = NULL;
@@ -157,29 +155,12 @@ struct node *addatend(struct node *head, int data)
 struct node *addbefore(struct node *head, int data, int item)
 {
     struct node *tmp = NULL, *p = NULL;
-
-    if (head == NULL)
-    {
-        printf("List is empty!!\n");
-        return head;
-    }
-
-    if (item == head->info)
-    {
-        tmp = (struct node *)malloc(sizeof(struct node));
-        tmp->info = data;
-        tmp->link = head;
-        head = tmp;
-        return head;
-    }
-
     p = head;
-    while (p->link != NULL)
-    {
-        if (p->link->info == item)
-        {
+    while(p->link != NULL) {
+        if(p->link->info == item) {
             tmp = (struct node *)malloc(sizeof(struct node));
             tmp->info = data;
+
             tmp->link = p->link;
             p->link = tmp;
             return head;
@@ -188,7 +169,7 @@ struct node *addbefore(struct node *head, int data, int item)
         p = p->link;
     }
 
-    printf("%d not present in the list!\n", item);
+    printf("%d not present in the list\n", item);
     return head;
 }
 
