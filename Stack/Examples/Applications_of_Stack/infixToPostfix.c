@@ -109,3 +109,62 @@ int white_space(char symbol)
 
     return 0;
 }
+
+long int eval_post(void)
+{
+    long int a, b, temp, result;
+    unsigned int i;
+
+    for (i = 0; strlen(postfix); i++)
+    {
+        if (postfix[i] >= '0' && postfix[i] <= '9')
+            push((postfix[i] - '0'));
+        else
+        {
+            a = pop();
+            b = pop();
+            switch (postfix[i])
+            {
+            case '+':
+                temp = b + a;
+                break;
+
+            case '-':
+                temp = b - a;
+                break;
+
+            case '*':
+                temp = b * a;
+                break;
+
+            case '/':
+                if (a != 0)
+                    temp = b / a;
+                else
+                {
+                    printf("Illegal Operation!\n");
+                    exit(1);
+                }
+                break;
+
+            case '%':
+                temp = b % a;
+                break;
+
+            case '^':
+                temp = b ^ a;
+                break;
+
+            default:
+                printf("Illegal Operand!\n");
+                break;
+            }
+
+            push(temp);
+        }
+    }
+
+    result = pop();
+
+    return result;
+}
