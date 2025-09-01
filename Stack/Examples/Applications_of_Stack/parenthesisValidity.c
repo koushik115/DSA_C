@@ -60,3 +60,33 @@ int check(char exp[])
         }
     }
 }
+
+int match(char a, char b)
+{
+    if ((a == '(' && b == ')') || (a == '{' && b == '}') || (a == '[' && b == ']'))
+        return 1;
+
+    return 0;
+}
+
+void push(char item)
+{
+    if (top == MAX - 1)
+    {
+        printf("Stack Overflow!\n");
+        return;
+    }
+
+    stack[++top] = item;
+}
+
+int pop(void)
+{
+    if (top == -1)
+    {
+        printf("Stack Underflow!\n");
+        exit(1);
+    }
+
+    return stack[top--];
+}
